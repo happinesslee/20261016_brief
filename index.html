@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAILY MACRO INTELLIGENCE BRIEF</title>
+  <!-- Google Fonts: Gowun Dodum & JetBrains Mono for tabular numbers -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=JetBrains+Mono:wght@400;600;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-paper: #FBFBFB;
+      --bg-subtle: #F3F3F3;
+      --bg-box: #F7F7F7;
+      --text-primary: #1A1A1A;
+      --text-secondary: #4A4A4A;
+      --text-muted: #757575;
+      --accent-black: #000000;
+      --border-light: #E5E5E5;
+      --border-dark: #1A1A1A;
+      --font-body: 'Gowun Dodum', -apple-system, BlinkMacSystemFont, "Malgun Gothic", serif;
+      --font-Display: 'Noto Serif KR', 'Gowun Dodum', Georgia, serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-paper);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .newspaper-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      border-top: 4px solid var(--accent-black);
+      padding-top: 0.5rem;
+    }
+
+    /* 1. Masthead / Header */
+    .masthead {
+      text-align: center;
+      border-top: 1px solid var(--accent-black);
+      border-bottom: 4px double var(--accent-black);
+      padding: 1.5rem 0 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .masthead-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.65rem;
+      margin-bottom: 1.2rem;
+      font-family: var(--font-mono);
+    }
+
+    .masthead-title {
+      font-family: var(--font-Display);
+      font-size: clamp(1.85rem, 4vw, 3.1rem);
+      font-weight: 700;
+      color: var(--accent-black);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Section Header Common */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--accent-black);
+      padding-bottom: 0.45rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-title {
+      font-family: var(--font-Display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--accent-black);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: "■";
+      font-size: 0.75rem;
+    }
+
+    .section-caption {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* 2. Macro Core Highlights (3-Column Newspaper Grid) */
+    .highlights-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .highlight-card {
+      padding: 0.5rem 1.5rem 1.5rem;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .highlight-card:first-child {
+      padding-left: 0;
+    }
+
+    .highlight-card:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .highlight-rank {
+      font-family: var(--font-mono);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--accent-black);
+      line-height: 1;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.4rem;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .highlight-title {
+      font-family: var(--font-Display);
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--accent-black);
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+
+    .highlight-summary {
+      font-size: 0.93rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    /* 3. Market Indicators Table / Strip */
+    .indicators-section {
+      margin-bottom: 2.75rem;
+    }
+
+    .indicators-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border-dark);
+      background-color: #FFFFFF;
+    }
+
+    .indicator-cell {
+      padding: 1.15rem 1.25rem;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .indicator-cell:last-child {
+      border-right: none;
+    }
+
+    .indicator-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .indicator-name {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    /* Minimal Monochrome Badge */
+    .indicator-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* UP: Filled solid black block with white text */
+    .badge-up {
+      background-color: var(--accent-black);
+      color: #FFFFFF;
+      border: 1px solid var(--accent-black);
+    }
+
+    /* DOWN: Outlined crisp white/gray block with black text */
+    .badge-down {
+      background-color: transparent;
+      color: var(--accent-black);
+      border: 1px solid var(--accent-black);
+    }
+
+    .indicator-value {
+      font-family: var(--font-mono);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--accent-black);
+      letter-spacing: -0.02em;
+    }
+
+    .indicator-delta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    /* 4. Top 5 Intelligence Cards */
+    .intelligence-section {
+      margin-bottom: 3rem;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+    }
+
+    /* Make the 1st lead story span full width (2 columns) on desktop like a front-page lead article */
+    .news-card:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .news-card {
+      border: 1px solid var(--border-dark);
+      background-color: #FFFFFF;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    .news-card-header {
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0.9rem;
+    }
+
+    .news-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+
+    .news-headline {
+      font-family: var(--font-Display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-black);
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+
+    .news-card:first-child .news-headline {
+      font-size: 1.45rem;
+    }
+
+    .news-card-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .news-card:first-child .news-card-body {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .sub-block {
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border-light);
+      background-color: var(--bg-paper);
+    }
+
+    .sub-block-label {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-black);
+      margin-bottom: 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.35rem;
+    }
+
+    /* 4-1. Observed Facts */
+    .facts-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .facts-list li {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      padding-left: 1rem;
+      position: relative;
+      word-break: keep-all;
+    }
+
+    .facts-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: var(--accent-black);
+    }
+
+    /* 4-2. Transmission Pathway */
+    .pathway-block {
+      background-color: var(--bg-subtle);
+      border-left: 3px solid var(--accent-black);
+    }
+
+    .pathway-steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .pathway-node {
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-dark);
+      padding: 0.25rem 0.55rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-black);
+    }
+
+    .pathway-arrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+
+    .pathway-impact {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      border-top: 1px dashed var(--border-light);
+      padding-top: 0.5rem;
+      word-break: keep-all;
+    }
+
+    .pathway-impact strong {
+      color: var(--accent-black);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      margin-right: 0.35rem;
+    }
+
+    /* 4-3. Falsification Criteria */
+    .falsification-block {
+      border: 1px dashed var(--border-dark);
+      background-color: #FFFFFF;
+    }
+
+    .falsification-text {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      word-break: keep-all;
+    }
+
+    /* 4-4. Analyst Tip */
+    .analyst-block {
+      background-color: var(--accent-black);
+      color: #FFFFFF;
+      padding: 0.85rem 1.05rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .news-card:first-child .analyst-block {
+      grid-column: 1 / -1;
+    }
+
+    .analyst-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background-color: #FFFFFF;
+      color: var(--accent-black);
+      padding: 0.15rem 0.45rem;
+      white-space: nowrap;
+      margin-top: 0.15rem;
+    }
+
+    .analyst-text {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: #F5F5F5;
+      word-break: keep-all;
+    }
+
+    /* 5. Footer */
+    .report-footer {
+      border-top: 4px double var(--accent-black);
+      padding-top: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-meta {
+      font-family: var(--font-mono);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .footer-disclaimer {
+      max-width: 620px;
+      text-align: right;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 960px) {
+      .highlights-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight-card {
+        padding: 1rem 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .highlight-card:last-child {
+        border-bottom: none;
+      }
+
+      .indicators-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .indicator-cell:nth-child(2) {
+        border-right: none;
+      }
+
+      .indicator-cell:nth-child(1),
+      .indicator-cell:nth-child(2) {
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .news-card:first-child .news-card-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem 0.85rem 3rem;
+      }
+
+      .masthead-top-bar {
+        flex-direction: column;
+        gap: 0.35rem;
+        text-align: center;
+      }
+
+      .indicators-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .indicator-cell {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .indicator-cell:last-child {
+        border-bottom: none;
+      }
+
+      .news-card {
+        padding: 1.15rem;
+      }
+
+      .analyst-block {
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+
+      .report-footer {
+        flex-direction: column;
+      }
+
+      .footer-disclaimer {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="newspaper-container">
+    <!-- 1. 발행 헤더 (Masthead) -->
+    <header class="masthead" id="masthead-container"></header>
+
+    <!-- 2. 오늘의 핵심 3가지 (Macro Core Highlights) -->
+    <section class="highlights-section">
+      <div class="section-header">
+        <h2 class="section-title">01 / Macro Core Highlights</h2>
+        <span class="section-caption">EXECUTIVE SUMMARY</span>
+      </div>
+      <div class="highlights-grid" id="highlights-container"></div>
+    </section>
+
+    <!-- 3. 시장 지표 테이블 (Market Indicators Table) -->
+    <section class="indicators-section">
+      <div class="section-header">
+        <h2 class="section-title">02 / Key Market Indicators</h2>
+        <span class="section-caption">REAL-TIME SNAPSHOT</span>
+      </div>
+      <div class="indicators-grid" id="indicators-container"></div>
+    </section>
+
+    <!-- 4. 오늘의 주요 뉴스 5건 (Top 5 Intelligence Cards) -->
+    <section class="intelligence-section">
+      <div class="section-header">
+        <h2 class="section-title">03 / Top 5 Intelligence Dispatches</h2>
+        <span class="section-caption">STRUCTURED ANALYST ASSESSMENT</span>
+      </div>
+      <div class="news-grid" id="news-container"></div>
+    </section>
+
+    <!-- 5. 푸터 (Footer) -->
+    <footer class="report-footer" id="footer-container"></footer>
+  </main>
+
+  <script>
+    // [기준 JSON 데이터]
+    const reportData = {
+      "report_metadata": {
+        "generated_at": "2026-10-14T11:30:00Z",
+        "display_date": "2026년 10월 14일 수요일",
+        "timezone": "Asia/Seoul",
+        "data_version": "v1.0-Automated"
+      },
+      "macro_core_highlights": [
+        {
+          "rank": "01",
+          "title": "국내 증시 대형 반도체주 중심의 기술적 반등 및 차별화",
+          "summary": "전일 5%대 급락을 겪었던 코스피가 반도체 대표주의 저가 매수세 유입으로 상승 반등에 성공했으나 코스닥은 하락하며 수급 양극화가 지속됨."
+        },
+        {
+          "rank": "02",
+          "title": "미국 국채금리 안정화에 따른 글로벌 기술주 투자심리 진정",
+          "summary": "간밤 미국 국채금리가 안정을 찾고 엔비디아와 AMD 등 글로벌 기술주가 상승 전환하며 국내 IT 대형주로의 매수세가 재유입됨."
+        },
+        {
+          "rank": "03",
+          "title": "환율 및 국제유가 동반 하락에 따른 수입 물가 부담 완화",
+          "summary": "원/달러 환율이 1,336원대로 하락하고 WTI 국제유가가 배럴당 78.2달러 선으로 하락해 거시 경제 전반의 수입 물가 압력이 일부 경감됨."
+        }
+      ],
+      "market_indicators": [
+        {
+          "name": "KOSPI",
+          "value": "6,082.90",
+          "change": "+49.55",
+          "change_percentage": "+0.82%",
+          "direction": "UP"
+        },
+        {
+          "name": "KOSDAQ",
+          "value": "833.15",
+          "change": "-3.94",
+          "change_percentage": "-0.47%",
+          "direction": "DOWN"
+        },
+        {
+          "name": "USD/KRW",
+          "value": "1,336.80원",
+          "change": "-6.18",
+          "change_percentage": "-0.46%",
+          "direction": "DOWN"
+        },
+        {
+          "name": "WTI CRUDE",
+          "value": "$78.20",
+          "change": "-0.95",
+          "change_percentage": "-1.20%",
+          "direction": "DOWN"
+        }
+      ],
+      "top_news_reports": [
+        {
+          "id": 1,
+          "headline": "SK하이닉스, 전일 10.09% 급락 후 주식 초고수 순매수 1위 기록 및 2%대 반등",
+          "observed_facts": [
+            "10월 13일 코스피 5.46% 급락 및 SK하이닉스 10.09% 하락 기록",
+            "10월 14일 11시 기준 미래에셋증권 상위 1% 투자자 순매수 1위 집계 (전일 순매도 5위에서 반전)",
+            "주가 전 거래일 대비 2.08% 상승한 147만 3000원 기록"
+          ],
+          "transmission_pathway": {
+            "channel": "CXMT 서버 D램 진입 공포에 따른 과매도 -> 초고수 자금 저가 매수세 유입 -> 대표주 단기 수급 방어",
+            "impact": "반도체 대형주 중심의 하방 경직성 확보 및 코스피 지수 하락 압력 완화"
+          },
+          "falsification_condition": "중국 CXMT의 서버용 D램 양산 수율 및 주요 CSP 인증 획득이 공식 확인되거나 SK하이닉스 주가가 140만 원을 하회할 경우",
+          "analyst_tip": "단기 수급 반등에 매몰되기보다 CXMT의 실제 샘플 칩 양산 수율 데이터 확인이 선행되어야 함."
+        },
+        {
+          "id": 2,
+          "headline": "이재용 삼성전자 회장, 홍라희 명예관장 지분 1.9조 원 장외매수 및 2.6조 원 증여 계약 공시",
+          "observed_facts": [
+            "홍라희 명예관장 보통주 766만 7100주 장외매수(주당 25만 500원, 총 1.92조 원)",
+            "오는 11월 12일 보통주 1115만 8000주 증여 예정(평가액 약 2.59조 원)",
+            "이 회장 지분율 1.58%에서 증여 후 1.75%로 확대, 증여세 약 1.55조 원 추산"
+          ],
+          "transmission_pathway": {
+            "channel": "지배주주 대규모 승계 거래 실행 -> 오너가 지분율 집중 및 지배구조 리스크 완화 -> 경영 안정성 확보",
+            "impact": "중장기 주주환원(배당금 증액 및 자사주 소각) 확대 가능성 및 설비투자(CAPEX) 집행력 강화"
+          },
+          "falsification_condition": "11월 12일 예정된 증여 계약이 전격 취소되거나 과세 표준 산정 기간 중 주가 급변으로 지분 승계 일정이 연기되는 경우",
+          "analyst_tip": "대주주 증여세 납부 재원 마련을 위해 향후 삼성전자의 배당 확대 및 주주환원율 추이를 반드시 점검할 것."
+        },
+        {
+          "id": 3,
+          "headline": "반도체 소부장 업종 내 전공정 차익실현 및 후공정·실적주 매수 양극화 심화",
+          "observed_facts": [
+            "순매수 상위: 티에스이(-1.52%), 티엘비(-5.85%), 원익IPS(-4.83%)",
+            "순매도 상위: 주성엔지니어링(-3.82%), 이오테크닉스(-3.95%), 디아이 등"
+          ],
+          "transmission_pathway": {
+            "channel": "단기 급등 소부장 차익실현 -> HBM 패키징 및 테스트 소부장으로 수급 분산 -> 밸류에이션 리밸런싱",
+            "impact": "전공정 장비 공급망의 단기 조정 및 후공정 검사·기판 부품사의 수주 가시성 중심 재평가"
+          },
+          "falsification_condition": "전공정 장비 업체의 신규 대규모 수주 공시가 집중되거나 후공정 기판 업체의 3분기 실적이 컨센서스를 대폭 하회하는 경우",
+          "analyst_tip": "테마성 일괄 상승이 종료되고 개별 기업의 HBM 공급망 직납 비중에 따른 옥석 가리기가 본격화됨."
+        },
+        {
+          "id": 4,
+          "headline": "삼성전자 4분기 영업이익 추정치 및 HBM4 효과 기반 실적 전망 공시",
+          "observed_facts": [
+            "10월 14일 삼성전자 보통주 전일 대비 3.66% 반등한 24만 500원 기록",
+            "KB증권, 4분기 영업이익 114조 원(전분기 대비 6% 증가) 및 2027년 HBM 판매가 100% 상승 추정",
+            "유진투자증권, 4분기 영업이익 118.8조 원, 내년 1분기 138.6조 원 전망"
+          ],
+          "transmission_pathway": {
+            "channel": "차세대 HBM4 판가 상승 기대 -> 메모리 사업부 블렌디드 ASP 상승 -> 잉여현금흐름(FCF) 확대",
+            "impact": "국내 메모리 산업 전반의 수익성 방어 및 IT 서플라이체인 전반의 설비투자 여력 확대"
+          },
+          "falsification_condition": "실제 4분기 확정 영업이익이 추정치를 10% 이상 하회하거나 차세대 HBM4 양산 로드맵이 2분기 이상 지연되는 경우",
+          "analyst_tip": "단순 영업이익 절대 규모보다 고부가 HBM 출하 비중과 D램 블렌디드 ASP 유지 여부가 주가 향방의 핵심."
+        },
+        {
+          "id": 5,
+          "headline": "중국 CXMT 서버용 D램 시장 진입 계획 발표와 국내 메모리 공급 리스크",
+          "observed_facts": [
+            "중국 CXMT 서버용 D램 출시 계획 공식화",
+            "증권가 실사 분석: 실제 양산 수율, 북미/글로벌 CSP 고객사 품질 인증 여부 미확정"
+          ],
+          "transmission_pathway": {
+            "channel": "중국 레거시 메모리 공급망 확대 시도 -> 범용 D램 시장 판가 압박 우려 -> 선단 공정 집중 가속",
+            "impact": "국내 메모리 제조사의 레거시 공정 라인 전환 촉진 및 범용 D램 판가 변동성 확대"
+          },
+          "falsification_condition": "CXMT가 주요 글로벌 빅테크 CSP에 벤더 등록을 마치고 12인치 기준 월 5만 장 이상의 서버 D램 납품을 개시하는 경우",
+          "analyst_tip": "당장의 점유율 위협보다는 중국 정부의 보조금 기반 저가 공세가 레거시 D램 ASP에 미치는 영향에 집중할 것."
+        }
+      ]
+    };
+
+    /**
+     * 데이터 주도 자동 렌더링 함수 (Data-Driven Rendering)
+     */
+    function renderReport(data) {
+      const { report_metadata, macro_core_highlights, market_indicators, top_news_reports } = data;
+
+      // 1. Masthead 렌더링
+      const mastheadEl = document.getElementById('masthead-container');
+      mastheadEl.innerHTML = `
+        <div class="masthead-top-bar">
+          <span>ISSUE DATE: ${report_metadata.display_date}</span>
+          <span>TIMEZONE: ${report_metadata.timezone} | GENERATED: ${report_metadata.generated_at}</span>
+          <span>VERSION: ${report_metadata.data_version}</span>
+        </div>
+        <h1 class="masthead-title">DAILY MACRO INTELLIGENCE BRIEF</h1>
+        <p class="masthead-subtitle">Institutional Grade Financial &amp; Macroeconomic Analysis Dispatch</p>
+      `;
+
+      // 2. Macro Core Highlights 렌더링
+      const highlightsEl = document.getElementById('highlights-container');
+      highlightsEl.innerHTML = macro_core_highlights.map(item => `
+        <article class="highlight-card">
+          <span class="highlight-rank">${item.rank}</span>
+          <h3 class="highlight-title">${item.title}</h3>
+          <p class="highlight-summary">${item.summary}</p>
+        </article>
+      `).join('');
+
+      // 3. Market Indicators 렌더링
+      const indicatorsEl = document.getElementById('indicators-container');
+      indicatorsEl.innerHTML = market_indicators.map(ind => {
+        const isUp = ind.direction === 'UP';
+        const arrow = isUp ? '▲' : '▼';
+        const badgeClass = isUp ? 'badge-up' : 'badge-down';
+        return `
+          <div class="indicator-cell">
+            <div class="indicator-top">
+              <span class="indicator-name">${ind.name}</span>
+              <span class="indicator-badge ${badgeClass}">${arrow} ${ind.change_percentage}</span>
+            </div>
+            <div class="indicator-value">${ind.value}</div>
+            <div class="indicator-delta">
+              <span>NET CHANGE: ${ind.change}</span>
+              <span>(${ind.direction})</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // 4. Top 5 Intelligence Cards 렌더링
+      const newsEl = document.getElementById('news-container');
+      newsEl.innerHTML = top_news_reports.map(report => {
+        const factsHtml = report.observed_facts
+          .map(fact => `<li>${fact}</li>`)
+          .join('');
+
+        // 파급 경로의 '->' 구분자를 파싱하여 시각적 노드로 변환
+        const steps = report.transmission_pathway.channel.split('->').map(s => s.trim());
+        const pathwayNodesHtml = steps
+          .map((step, idx) => `
+            <span class="pathway-node">${step}</span>
+            ${idx < steps.length - 1 ? '<span class="pathway-arrow">&rarr;</span>' : ''}
+          `)
+          .join('');
+
+        return `
+          <article class="news-card">
+            <div class="news-card-header">
+              <span class="news-meta">DISPATCH #0${report.id} // EQUITY &amp; MACRO RESEARCH</span>
+              <h3 class="news-headline">${report.headline}</h3>
+            </div>
+
+            <div class="news-card-body">
+              <!-- 1. 관측 팩트 (Observed Facts) -->
+              <div class="sub-block">
+                <div class="sub-block-label">
+                  <span>1. 관측 팩트 (Observed Facts)</span>
+                  <span>VERIFIED DATA</span>
+                </div>
+                <ul class="facts-list">
+                  ${factsHtml}
+                </ul>
+              </div>
+
+              <!-- 2. 파급 경로 (Transmission Pathway) -->
+              <div class="sub-block pathway-block">
+                <div class="sub-block-label">
+                  <span>2. 파급 경로 (Transmission Pathway)</span>
+                  <span>CAUSAL MECHANISM</span>
+                </div>
+                <div class="pathway-steps">
+                  ${pathwayNodesHtml}
+                </div>
+                <p class="pathway-impact">
+                  <strong>[IMPACT]</strong>${report.transmission_pathway.impact}
+                </p>
+              </div>
+
+              <!-- 3. 기각 조건 (Falsification Criteria) -->
+              <div class="sub-block falsification-block">
+                <div class="sub-block-label">
+                  <span>3. 기각 조건 (Falsification Criteria)</span>
+                  <span>BOUNDARY CONDITION</span>
+                </div>
+                <p class="falsification-text">${report.falsification_condition}</p>
+              </div>
+
+              <!-- 4. 애널리스트 체크포인트/팁 (Analyst Tip) -->
+              <div class="analyst-block">
+                <span class="analyst-badge">4. Analyst Tip</span>
+                <p class="analyst-text">${report.analyst_tip}</p>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // 5. Footer 렌더링
+      const footerEl = document.getElementById('footer-container');
+      footerEl.innerHTML = `
+        <div class="footer-meta">
+          <span>MACHINE-READABLE INTELLIGENCE DIGEST // ${report_metadata.data_version}</span>
+          <span>GENERATED AT: ${report_metadata.generated_at} (${report_metadata.timezone})</span>
+        </div>
+        <p class="footer-disclaimer">
+          본 리포트는 정제된 시장 데이터 및 공시 정보를 기반으로 자동 생성된 거시·산업 인텔리전스 브리프입니다.
+          제시된 파급 경로와 기각 조건은 애널리스트 검증 프레임워크에 따르며, 특정 금융상품에 대한 매수·매도 권유가 아닙니다.
+        </p>
+      `;
+    }
+
+    // 페이지 로드 시 자동 렌더링 실행
+    document.addEventListener('DOMContentLoaded', () => {
+      renderReport(reportData);
+    });
+  </script>
+</body>
+</html>
+
