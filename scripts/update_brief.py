@@ -459,10 +459,12 @@ def call_gemini_intelligence_engine(user_prompt: str) -> Dict[str, Any]:
             "GitHub Actions Secrets 또는 로컬 환경변수를 확인하십시오."
         )
 
-    model_candidates = [
-        os.environ.get("GEMINI_MODEL", "gemini-2.5-flash").strip(),
-        "gemini-2.0-flash",
+    raw_candidates = [
+        os.environ.get("GEMINI_MODEL", "gemini-3.8-flash").strip(),
+        "gemini-3.8-flash",
+        "gemini-flash-latest",
     ]
+    model_candidates = list(dict.fromkeys(m for m in raw_candidates if m))
 
     last_error: Optional[Exception] = None
 
